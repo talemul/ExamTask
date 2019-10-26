@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+define('CONSOLE_ROOT', __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR);
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+
+$container = new ContainerBuilder();
+$loader = new PhpFileLoader($container, new FileLocator(CONSOLE_ROOT));
+$loader->load('src/AppServices.php');
+
+// Create the Application
+$application = new Symfony\Component\Console\Application;
+
+/**
+ * Set application controller to handle interaction between different component 
+ * of the application and pass it to custom console command
+ */
+$identificationRequestController = new App\Controller\DocumentVlidationRulesController($container);
+$identificationRequestController->setFilePath(CONSOLE_ROOT); 
+
+// Register all Commands
+$application->add(new App\Command\DocumentVlidationRulesCommand($identificationRequestController));
+
+// Run it
+$application->run();
+
+
+
+

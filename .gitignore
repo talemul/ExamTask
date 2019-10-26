@@ -1,0 +1,8 @@
+
+# Build data
+/build/
+/.idea
+# Composer PHAR
+/composer.phar
+
+.php_cs.cache

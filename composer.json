@@ -1,0 +1,29 @@
+{
+    "require": {
+        "php": "^7.3",
+        "symfony/console": "^3.4",
+        "symfony/finder": "^3.4",
+        "nesbot/carbon": "^2.23",
+        "symfony/dependency-injection": "3.4",
+        "symfony/config": "3.4",
+        "symfony/validator": "3.4"
+    },
+    "autoload": {
+        "psr-4": {"App\\": "src/"}
+	},
+    "autoload-dev": {
+        "psr-4": {
+            "App\\": "src/",
+            "Test\\": "test/"
+        }
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^4.3"
+    },
+    "repositories": {
+        "phpunit-bridge": {
+            "type": "path",
+            "url": "/app/vendor/symfony/phpunit-bridge"
+        }
+    }
+}

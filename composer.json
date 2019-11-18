@@ -4,7 +4,7 @@
         "symfony/console": "^3.4",
         "symfony/finder": "^3.4",
         "nesbot/carbon": "^2.23",
-        "symfony/dependency-injection": "3.4",
+        "symfony/dependency-injection": "3.4.26",
         "symfony/config": "3.4",
         "symfony/validator": "3.4"
     },

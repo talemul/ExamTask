@@ -10,17 +10,24 @@
  */
 class Singleton
 {
-
+    private $str;
     // @TODO Implement Singleton functionality
+
+    /**
+     * set default value
+     */
+    function __construct()
+    {
+        $this->str = "";
+    }
+
     /**
      * @param string $value
      * @return string
      */
     public function validateAndSanitize($value)
     {
-        if (!empty($value)) {
-            $value = filter_var($value, FILTER_SANITIZE_STRING);
-        }
+        $value = filter_var($value, FILTER_SANITIZE_STRING);
         return $value;
     }
 
@@ -44,8 +51,16 @@ class Singleton
     public function userQuery($name)
     {
         // @TODO Validate & sanitize $name
+        //for old php version less than 5.4
         $name = $this->validateAndSanitize($name);
+        $name = mysql_real_escape_string($name);
         mysql_query("SELECT * FROM `test` WHERE `name` = '{$name}' LIMIT 1");
+//        another solution
+//        $dbc="DB connection";
+//        $query = mysqli_prepare($dbc, "SELECT * FROM `test` WHERE `name` = ? LIMIT 1");
+//        mysqli_stmt_bind_param($query, "s", $name);
+//        mysqli_stmt_execute($query);
+
     }
 
     /**
@@ -104,13 +119,37 @@ class Singleton
     }
 
     /**
+     * @param $str set value
+     * @return $this
+     */
+    public function setStrA($str)
+    {
+        $this->str .= $str;
+        return $this;
+    }
+
+    /**
+     * @param $str set value
+     * @return $this
+     */
+    public function setStrB($str)
+    {
+        $this->str .= $str;
+        return $this;
+    }
+
+    /**
      * Method chaining
      */
     public function methodChained()
     {
         // @TODO Implement method chaining
+        return $this->str;
     }
-
+    /**
+     * to call method chaining $obj = new Singleton();
+     * echo $obj->setStrA("string A")->setStrB("string B")->methodChained();
+     */
     /**
      * Immutables are hard to find
      */
@@ -128,7 +167,6 @@ class Singleton
             case 'stringB':
                 $result = 2;
                 break;
-            default
 
         }
 
